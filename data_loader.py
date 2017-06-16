@@ -15,13 +15,13 @@ def get_loader(root, batch_size, scale_size, data_format, split=None, is_graysca
             tf_decode = tf.image.decode_jpeg
         elif ext == "png":
             tf_decode = tf.image.decode_png
-        
+
         if len(paths) != 0:
             break
 
-    with Image.open(paths[0]) as img:
-        w, h = img.size
-        shape = [h, w, 3]
+    img = Image.open(paths[0])
+    w, h = img.size
+    shape = [h, w, 3]
 
     filename_queue = tf.train.string_input_producer(list(paths), shuffle=False, seed=seed)
     reader = tf.WholeFileReader()
